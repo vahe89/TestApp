@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import * as THREE from "three";
 import logo from "./assets/img/logo.svg";
 import close_icon from "./assets/img/close_icon.svg";
-import phone from "./assets/img/phone.svg";
 import logo1 from "./assets/img/logo1.png";
 import cnn_logo from "./assets/img/cnn-logo.png";
 import mtv_log from "./assets/img/mtv-logo-2010-2.png";
@@ -34,9 +33,12 @@ class App extends Component {
 
         this.headerFon = null;
         this.video = null;
+        this.mainImg = null;
+        this.index = 0;
+        this.interval = null;
 
         this.videos = {
-            1:  video1,
+            1: video1,
             2: video2,
             3: video3,
             4: video4,
@@ -242,7 +244,18 @@ class App extends Component {
             t = t + 0.05;
         };
         animate();
+
+        this.interval = setInterval(()=>{this.change()} , 50)
+
     }
+
+     change =()=> {
+        this.mainImg.src = `/assets/imgphone/000${this.index < 10 ? '0' + this.index : this.index}.png`;
+         this.index++;
+        if (this.index >= 75) {
+            clearInterval(this.interval)
+        }
+    };
 
      randomInteger =(min, max)=> {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -252,7 +265,8 @@ class App extends Component {
     }
 
     render() {
-         const {activeVideoId} = this.state
+         const {activeVideoId} = this.state;
+         console.log(activeVideoId)
         return (
             <div  className="App">
                 <header className="header">
@@ -305,10 +319,9 @@ class App extends Component {
                                 </button>
                             </div>
                             <div className="col-lg-4 col-12 img_block">
-                                <img src={phone} alt="Phone"/>
+                                <img id="main_img" className="main_img" src="/assets/imgphone/00000.png" alt="Phone" ref={(ref) => {this.mainImg = ref}}/>
                                 <button className="btn btn_navigation d-lg-none d-block">Become an early adopter
                                 </button>
-
                             </div>
                         </div>
                         <div className="row clients_block">
