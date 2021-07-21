@@ -36,7 +36,7 @@ class MainContent extends Component {
                 {
                     id: 4,
                     name: "Group video streaming",
-                    img: "/assets/img/product1.png",
+                    img: "/assets/img/product4.png",
                     text_1: 'Stream together with other influencers',
                     text_2: 'Monetize your popularity',
                     text_3: 'Earn tokens for sharing your fan base',
@@ -44,7 +44,7 @@ class MainContent extends Component {
                 {
                     id: 5,
                     name: "Live audio rooms",
-                    img: "/assets/img/product2.png",
+                    img: "/assets/img/product5.png",
                     text_1: 'Create audio rooms',
                     text_2: 'Invite friends & followers',
                     text_3: 'Broadcast to your audience',
@@ -112,7 +112,7 @@ class MainContent extends Component {
                                 <video id="video" ref={(ref) => {
                                     this.video = ref
                                 }}>
-                                    {/*<source src={this.videos[activeVideoId]} type="video/mp4"/>*/}
+
                                 </video>
                                 <img src="/assets/img/frame.png" alt=""/>
                             </div>
