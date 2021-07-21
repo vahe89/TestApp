@@ -1,13 +1,25 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import {makeAction} from "../makeAction";
+import {connect} from "react-redux";
+import {HIDE_MENU, SHOW_MENU} from "../actionsTypes";
 
 class NavBar extends Component {
+
+    showMenu = () => {
+        this.props.makeAction(SHOW_MENU)
+    };
+    closeMenu =()=>{
+        this.props.makeAction(HIDE_MENU)
+    };
+
     render() {
+        const {showMenu} = this.props;
         return (
             <nav className="nav-bar">
                 <Link to="#"><img src="/assets/img/logo.svg" alt="Logo"/></Link>
 
-                <ul className="nav_list ">
+                <ul className={`nav_list ${showMenu ? 'nav_mobile_bar' : ''}`}>
                     <li className="nav_item">
                         <Link to="#" className="nav_link">The platform </Link>
                     </li>
@@ -35,16 +47,26 @@ class NavBar extends Component {
                 </ul>
 
                 <div className="show_bar">
-                    <div className="show_btn">
-                        <span className="mt-0"></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div className="close_btn d-none">
+                    {
+                        !showMenu ?
+                            <div className="show_btn" onClick={this.showMenu}>
+                                <span className="mt-0"></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            :null
+                    }
+
+                    {
+                        showMenu ?
+                            <div className="close_btn" onClick={this.closeMenu}>
                                 <span>
                                     <img src="/assets/img/close_icon.svg" alt=""/>
                                 </span>
-                    </div>
+                            </div>
+                            : null
+                    }
+
 
                 </div>
             </nav>
@@ -52,4 +74,15 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+    showMenu: state.mainReducer.showMenu,
+});
+
+const mapDispatchToProps = {
+    makeAction
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NavBar)

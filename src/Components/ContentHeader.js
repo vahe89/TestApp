@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {makeAction} from "../makeAction";
+import {connect} from "react-redux";
 
 class ContentHeader extends Component {
 
@@ -23,8 +25,9 @@ class ContentHeader extends Component {
         }
     };
     render() {
+        const {showMenu} = this.props;
         return (
-            <div className="content_header ">
+            <div className={`content_header ${showMenu ? 'hidden_block' : ''}`}>
                 <div className="container_fluid">
                     <div className="row">
                         <div className="col-lg-8 col-12">
@@ -65,4 +68,16 @@ class ContentHeader extends Component {
     }
 }
 
-export default ContentHeader;
+const mapStateToProps = (state) => ({
+    showMenu: state.mainReducer.showMenu,
+});
+
+const mapDispatchToProps = {
+    makeAction
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ContentHeader)
+
